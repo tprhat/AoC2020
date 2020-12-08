@@ -50,24 +50,20 @@ public class Day8 {
 		}
 		i = 0;
 		int global1 = 0;
-		int changed = 0;
+		int c = 0;
 		int broke = 0;
 		String[] s1 = s.clone();
-		while (true) {
+		for (c = 0; c < n; c++) {
 			s = s1.clone();
-			i = changed;
-			if(s[i].startsWith("acc")) {
-				changed++;
+			if(s[c].startsWith("acc")) {
 				continue;
 			}
 			else {
-				if(s[i].startsWith("nop")) {
-					s[i] = s[i].replace("nop", "jmp");
-					changed++;
+				if(s[c].startsWith("nop")) {
+					s[c] = s[c].replace("nop", "jmp");
 				}
-				else if(s[i].startsWith("jmp")) {
-					s[i] = s[i].replace("jmp", "nop");
-					changed++;
+				else if(s[c].startsWith("jmp")) {
+					s[c] = s[c].replace("jmp", "nop");
 				}
 			}
 			i = 0;
