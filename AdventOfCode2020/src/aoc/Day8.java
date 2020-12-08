@@ -1,22 +1,22 @@
 package aoc;
 
-import java.io.BufferedInputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Day8 {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(new BufferedInputStream(System.in));
+		Scanner sc = new Scanner(System.in);
 		int i = 0;
 		String[] s = new String[5000];
-		Integer[] var_used = new Integer[5000];
 		int n = 0;
 		while (sc.hasNextLine()) {
 			s[i] = sc.nextLine();
-			var_used[i] = 0;
 			i++;
 		}
 		n = i;
+		Integer[] var_used = new Integer[n];
+		Arrays.fill(var_used, 0);
+		System.out.println(var_used.length);
 		sc.close();
 		i = 0;
 		int global = 0;
@@ -36,7 +36,7 @@ public class Day8 {
 				i += ss;
 				continue;
 			}
-			if(s[i].startsWith("acc")) {
+			if (s[i].startsWith("acc")) {
 				int br;
 				if (s[i].split(" ")[1].startsWith("-")) {
 					br = Integer.parseInt(s[i].split(" ")[1]);
@@ -55,14 +55,12 @@ public class Day8 {
 		String[] s1 = s.clone();
 		for (c = 0; c < n; c++) {
 			s = s1.clone();
-			if(s[c].startsWith("acc")) {
+			if (s[c].startsWith("acc")) {
 				continue;
-			}
-			else {
-				if(s[c].startsWith("nop")) {
+			} else {
+				if (s[c].startsWith("nop")) {
 					s[c] = s[c].replace("nop", "jmp");
-				}
-				else if(s[c].startsWith("jmp")) {
+				} else if (s[c].startsWith("jmp")) {
 					s[c] = s[c].replace("jmp", "nop");
 				}
 			}
@@ -73,8 +71,7 @@ public class Day8 {
 				var_used[i] = 1;
 				if (s[i].startsWith("nop")) {
 					i++;
-				}
-				else if (s[i].startsWith("jmp")) {
+				} else if (s[i].startsWith("jmp")) {
 					int ss;
 					if (s[i].split(" ")[1].startsWith("-")) {
 						ss = Integer.parseInt(s[i].split(" ")[1]);
@@ -82,8 +79,7 @@ public class Day8 {
 						ss = Integer.parseInt(s[i].split(" ")[1].substring(1));
 					}
 					i += ss;
-				}
-				else if (s[i].startsWith("acc")) {
+				} else if (s[i].startsWith("acc")) {
 					int br;
 					if (s[i].split(" ")[1].startsWith("-")) {
 						br = Integer.parseInt(s[i].split(" ")[1]);
@@ -98,11 +94,11 @@ public class Day8 {
 					break;
 				}
 			}
-			if(broke == 1)
+			if (broke == 1)
 				break;
 		}
-		System.out.println("Part 1:\n" + global);
-		System.out.println("Part 2:\n" + global1);
+		System.out.println("Part 1: Global variable infinite loop: \n" + global);
+		System.out.println("Part 2: Global varialbe after fix: \n" + global1);
 	}
 
 }
