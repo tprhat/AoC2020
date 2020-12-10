@@ -43,7 +43,6 @@ public class Day10 {
 		}
 		int prod = counter[0] * counter[2];
 		System.out.println("Part 1 : 3-diff * 1-diff is:\n" + prod);
-		int[] tribonacci = {0, 1, 1, 2, 4, 7, 13};
 		int prev = 0;
         long result = 1;
         int consecutiveCount = 1;
@@ -52,7 +51,17 @@ public class Day10 {
         	if(i == prev + 1)
         		consecutiveCount++;
         	else {
-        		result *= tribonacci[consecutiveCount];
+        		switch(consecutiveCount) {
+        		case 3:
+        			result *= 2;
+        			break;
+        		case 4:
+        			result *= 4;
+        			break;
+        		case 5:
+        			result *= 7;
+        			break;
+        		}
         		consecutiveCount = 1;
         	}
         	prev = i;
