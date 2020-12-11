@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class Day5 {
+public class Day05 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(new BufferedInputStream(System.in));
@@ -70,10 +70,10 @@ public class Day5 {
 			hSeatNum = hSeatNum < row * 8 + col ? row * 8 + col : hSeatNum;
 			set.add(row * 8 + col);
 		}
-		System.out.println("Highest seat number is: " + hSeatNum);
+		System.out.println("Part 1: Highest seat number is: \n" + hSeatNum);
 		for(i = set.first() ; i < set.last(); i ++) {
 			if(!set.contains(i)) {
-				System.out.println("My seat number is: "  + i);
+				System.out.println("Part 2: My seat number is: \n"  + i);
 			}
 		}
 		

@@ -7,7 +7,7 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Scanner;
 
-public class Day7 {
+public class Day07 {
 	public static int n = 0;
 	public static List<String> possibleBags = new ArrayList<String>();
 	public static String[] s = new String[5000];
