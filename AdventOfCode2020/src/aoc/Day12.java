@@ -64,8 +64,6 @@ public class Day12 {
 		pos[1] = 0;
 		int[] waypoint = {1,10};
 		for(int i = 0; i < s.size(); i++) {
-//			System.out.println(waypoint[0] + " " + waypoint[1]);
-//			System.out.println(pos[0] + " " + pos[1]);
 			char move = s.get(i).charAt(0);
 			int dist = Integer.parseInt(s.get(i).substring(1));
 			if(move == 'N') {
