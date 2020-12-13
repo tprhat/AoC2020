@@ -43,7 +43,31 @@ public class Day13 {
 		}
 		int multi = j * (min - sum);
 		System.out.println("Part 1: \n" + multi);
-		
+		list.clear();
+		for(String x : s.get(1).split(",")) {
+			if(!x.equals("x")) {
+				list.add(Integer.parseInt(x));
+			}
+			else {
+				list.add(-1);
+			}
+		}
+		long time = 0;
+		long k = 0;
+		long step = 1;
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i) == -1) {
+				continue;
+			}
+			for(k = time; ;k+=step) {
+				if((k+i) % list.get(i) == 0) {
+					time = k;
+					break;
+				}
+			}
+			step *= list.get(i);
+		}
+		System.out.println("Part 2: \n" + time);
 	}
 
 }
