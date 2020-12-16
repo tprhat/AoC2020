@@ -1,10 +1,7 @@
 package aoc;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+import java.util.Map.Entry;
 
 public class Day16 {
 	private static List<String> s = new ArrayList<>();
@@ -80,17 +77,67 @@ public class Day16 {
 		}
 		System.out.println("Part 1: \n" + sum);
 
-//		otherTickets.clear();
-//		otherTickets.addAll(temp);
-//		ArrayList<ArrayList<Integer>> cols = new ArrayList<ArrayList<Integer>>();
-//		for (int i = 0; i < map.keySet().size(); i++) {
-//			ArrayList<Integer> tmp = new ArrayList<Integer>();
-//			for (String x : otherTickets) {
-//				tmp.add(Integer.parseInt(x.split(",")[i]));
-//			}
-//			cols.add(tmp);
-//		}
-		
+		otherTickets.clear();
+		otherTickets.addAll(temp);
+		ArrayList<ArrayList<Integer>> cols = new ArrayList<ArrayList<Integer>>();
+		for (int i = 0; i < map.keySet().size(); i++) {
+			ArrayList<Integer> tmp = new ArrayList<Integer>();
+			for (String x : otherTickets) {
+				tmp.add(Integer.parseInt(x.split(",")[i]));
+			}
+			cols.add(tmp);
+		}
+		HashMap<String, ArrayList<Integer>> combos = new HashMap<String, ArrayList<Integer>>();
+		ArrayList<Integer> check = new ArrayList<Integer>();
+		for (Entry<String, ArrayList<Integer>> entry : map.entrySet()) {
+			ArrayList<Integer> toAdd = new ArrayList<Integer>();
+			check = entry.getValue();
+			for (int i = 0; i < cols.size(); i++) {
+				boolean fits = true;
+				for (int x : cols.get(i)) {
+					if (!((x >= check.get(0) && x <= check.get(1)) || (x >= check.get(2) && x <= check.get(3)))) {
+						fits = false;
+						break;
+					}
+				}
+				if (fits) {
+					toAdd.add(i);
+				}
+			}
+			combos.put(entry.getKey(), toAdd);
+		}
+		boolean change = true;
+		while (change) {
+			change = false;
+			HashMap<String, ArrayList<Integer>> beggining = new HashMap<String, ArrayList<Integer>>();
+			beggining.putAll(combos);
+			for (Entry<String, ArrayList<Integer>> entry : combos.entrySet()) {
+				if (entry.getValue().size() == 1) {
+					int x = entry.getValue().get(0);
+					for (Entry<String, ArrayList<Integer>> entry1 : combos.entrySet()) {
+						ArrayList<Integer> list = new ArrayList<Integer>();
+						if (!entry1.getKey().equals(entry.getKey())) {
+							for (int y : entry1.getValue()) {
+								if (x != y) {
+									list.add(y);
+									change = true;
+								}
+							}
+							combos.put(entry1.getKey(), list);
+						}
+					}
+					if(beggining.equals(combos))
+						change = false;
+				}
+			}
+		}
+		long prod = 1;
+		for (Entry<String, ArrayList<Integer>> entry : combos.entrySet()) {
+			if(entry.getKey().startsWith("departure")) {
+				prod *= myTicket.get(entry.getValue().get(0));
+			}
+		}
+		System.out.println("Part 2: \n" + prod);
 	}
 
 }
